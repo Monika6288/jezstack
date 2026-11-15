@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/component.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+        <div class="logo">
+            <span>☀</span> Weatherly
+        </div>
+
+        <nav class="navbar">
+            <a href="#" class="active" data-section="dashboard">Dashboard</a>
+            <a href="#" data-section="forecast">Forecast</a>
+            <a href="#" data-section="favourites">Favourites</a>
+            <a href="#" data-section="compare">Compare Cities</a>
+            <a href="#" data-section="history">Search History</a>
+        </nav>
+
+        <div class="profile">
+            <span>👤</span>
+            <span>Monika</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="page-section active-section">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Weather Dashboard</h1>
+                    <p>Welcome back! Here's your weather overview.</p>
+                </div>
+
+                <div class="date" id="currentDate"></div>
+            </div>
+
+            <!-- Search -->
+            <div class="search-box">
+                <input type="text" id="cityInput"
+                    placeholder="Search for a city...">
+                <button id="searchBtn">Search</button>
+            </div>
+
+            <!-- Current Weather -->
+            <div class="weather-card">
+                <div>
+                    <p class="location" id="cityName">Erode, India</p>
+                    <h2 id="temperature">--°C</h2>
+                    <p id="weatherDescription">Search for a city</p>
+                </div>
+
+                <span id="weatherIcon" class="weather-icon">🌤️</span>
+
+                <button id="addFavoriteBtn" class="favorite-btn">
+                    ♡ Add to Favorites
+                </button>
+            </div>
+
+            <!-- Weather Details -->
+            <h2 class="section-title">Weather Details</h2>
+
+            <div class="weather-grid">
+
+                <div class="detail-card">
+                    <span>💧</span>
+                    <p>Humidity</p>
+                    <h3 id="humidity">--%</h3>
+                </div>
+
+                <div class="detail-card">
+                    <span>💨</span>
+                    <p>Wind Speed</p>
+                    <h3 id="windSpeed">-- km/h</h3>
+                </div>
+
+                <div class="detail-card">
+                    <span>🌡️</span>
+                    <p>Feels Like</p>
+                    <h3 id="feelsLike">--°C</h3>
+                </div>
+
+                <div class="detail-card">
+                    <span>🌧️</span>
+                    <p>Rain Probability</p>
+                    <h3 id="rainChance">--%</h3>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Search History Section -->
+        <section id="history" class="page-section">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Search History</h1>
+                    <p>View your recently searched cities.</p>
+                </div>
+
+                <button id="clearHistoryBtn" class="clear-btn">
+                    Clear History
+                </button>
+            </div>
+
+            <div id="historyContent" class="history-grid"></div>
+
+        </section>
+
+        <!-- Forecast Section -->
+        <section id="forecast" class="page-section">
+            <h1>Weather Forecast</h1>
+            <p>View upcoming weather conditions.</p>
+            <div id="forecastContent"></div>
+        </section>
+
+        <!-- Favourites Section -->
+        <section id="favourites" class="page-section">
+            <h1>Favourite Cities</h1>
+            <p>Your saved cities will appear here.</p>
+            <div id="favouritesContent" class="favorites-grid">
+            </div>
+        </section>
+
+        <!-- Compare Cities Section -->
+        <section id="compare" class="page-section">
+            <h1>Compare Cities</h1>
+            <p>Compare weather conditions between cities.</p>
+
+            <div class="compare-form">
+                <input type="text" id="compareCityOne" placeholder="First city">
+                <input type="text" id="compareCityTwo" placeholder="Second city">
+                <button id="compareBtn">Compare</button>
+            </div>
+
+            <div id="compareContent" class="compare-grid"></div>
+        </section>
+
+    </main>
+
+   <script type="module" src="js/app.js"></script>
+</body>
+</html>
