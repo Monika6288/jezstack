@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Student Management System</title>
+
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/common.css">
+  </head>
+  <body>
+    <main class="login-page">
+      <section class="login-container">
+        <div class="login-logo">
+          <div class="logo-icon">SMS</div>
+          <h1>Student Management</h1>
+          <!-- <p>Management Portal</p> -->
+        </div>
+
+        <div class="login-heading">
+          <h2>Welcome Back!</h2>
+          <p>Please login to your admin account.</p>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+
+            <input type="text"  id="username"  name="username"  placeholder="Enter your username"  autocomplete="username"  required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+
+            <div class="password-wrapper">
+              <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password"   required>
+
+              <button type="button" id="togglePassword"  class="toggle-password" aria-label="Show password">Show</button>
+            </div>
+          </div>
+
+          <p id="errorMessage" class="error-message" role="alert"></p>
+
+          <button type="submit" id="loginBtn" class="login-button">
+            Login to Dashboard
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <p>Student Management System</p>
+          <span>© 2026 All Rights Reserved</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/login.js"></script>
+  </body>
+</html>

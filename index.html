@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>
+   Student Management System
+  </title>
+  <link href="css/common.css" rel="stylesheet">
+  <link href="css/components.css" rel="stylesheet">
+  <link href="css/layout.css" rel="stylesheet">
+  <link href="css/dashboard.css" rel="stylesheet">
+  <link href="css/students.css" rel="stylesheet">
+  <link href="css/courses.css" rel="stylesheet">
+  <link href="css/trainers.css" rel="stylesheet">
+  <link href="css/attendance.css" rel="stylesheet">
+  <link href="css/assignments.css" rel="stylesheet">
+  <link href="css/reports.css" rel="stylesheet">
+  <link href="css/profile.css" rel="stylesheet">
+  <link href="css/student-details.css" rel="stylesheet">
+  <link href="css/single-page.css" rel="stylesheet">
+ </head>
+ <body>
+  <div class="dashboard-container single-page-app">
+   <header class="single-topbar">
+    <a class="brand" data-section="dashboard" href="#dashboard">
+     <span class="brand-logo">
+      S
+     </span>
+     <span>
+      <strong>
+       Student MS
+      </strong>
+      <small>
+       Admin Portal
+      </small>
+     </span>
+    </a>
+    <nav aria-label="Main navigation" class="navbar">
+     <a class="active" data-section="dashboard" href="#dashboard">
+      Dashboard
+     </a>
+     <a data-section="students" href="#students">
+      Students
+     </a>
+     <a data-section="courses" href="#courses">
+      Courses
+     </a>
+     <a data-section="trainers" href="#trainers">
+      Trainers
+     </a>
+     <a data-section="attendance" href="#attendance">
+      Attendance
+     </a>
+     <a data-section="assignments" href="#assignments">
+      Assignments
+     </a>
+     <a data-section="reports" href="#reports">
+      Reports
+     </a>
+     <a data-section="profile" href="#profile">
+      Profile
+     </a>
+    </nav>
+    <div class="topbar-user">
+     <span class="topbar-avatar">
+      A
+     </span>
+     <span>
+      <strong id="topAdminName">
+       Admin
+      </strong>
+      <small>
+       Administrator
+      </small>
+     </span>
+     <button class="logout-btn" id="logoutBtn" type="button">
+      Logout
+     </button>
+    </div>
+   </header>
+   <main class="main-content single-main">
+    <section class="page-section active-section" data-page-title="Dashboard" id="dashboard">
+     <section class="welcome-section">
+      <div>
+       <h2>
+        Welcome back,
+        <span id="welcomeAdminName">
+         Admin
+        </span>
+        !
+       </h2>
+       <p>
+        Here's what's happening with your institution today.
+       </p>
+      </div>
+      <div class="welcome-icon">
+       ✦
+      </div>
+     </section>
+     <section class="dashboard-section">
+      <div class="section-heading">
+       <div>
+        <h2>
+         Overview
+        </h2>
+        <p>
+         Your institution's summary
+        </p>
+       </div>
+      </div>
+      <div class="overview-grid">
+       <article class="overview-card">
+        <div class="card-top">
+         <div class="card-icon students-icon">
+          ♙
+         </div>
+         <span class="card-tag">
+          Students
+         </span>
+        </div>
+        <h3 id="totalStudents">
+         0
+        </h3>
+        <p>
+         Total registered students
+        </p>
+       </article>
+       <article class="overview-card">
+        <div class="card-top">
+         <div class="card-icon courses-icon">
+          ▤
+         </div>
+         <span class="card-tag">
+          Courses
+         </span>
+        </div>
+        <h3 id="totalCourses">
+         0
+        </h3>
+        <p>
+         Currently active courses
+        </p>
+       </article>
+       <article class="overview-card">
+        <div class="card-top">
+         <div class="card-icon trainers-icon">
+          ♟
+         </div>
+         <span class="card-tag">
+          Trainers
+         </span>
+        </div>
+        <h3 id="totalTrainers">
+         0
+        </h3>
+        <p>
+         Total registered trainers
+        </p>
+       </article>
+       <article class="overview-card attendance-card">
+        <div class="card-top">
+         <div class="card-icon attendance-icon">
+          &checkmark;
+         </div>
+         <span class="card-tag">
+          Attendance
+         </span>
+        </div>
+        <h3 id="attendancePresent">
+         0
+        </h3>
+        <p>
+         Students present today
+        </p>
+        <div class="attendance-detail">
+         <span id="attendanceAbsent">
+          0 absent
+         </span>
+         <span id="attendanceLeave">
+          0 on leave
+         </span>
+        </div>
+       </article>
+      </div>
+     </section>
+     <section class="bottom-grid">
+      <div class="content-card activity-card">
+       <div class="content-card-heading">
+        <div>
+         <h2>
+          Recent Activity
+         </h2>
+         <p>
+          Latest records in your institution
+         </p>
+        </div>
+        <span class="heading-icon">
+         ◷
+        </span>
+       </div>
+       <div class="activity-list" id="recentActivity">
+        <p class="empty-message">
+         No recent activity available.
+        </p>
+       </div>
+      </div>
+      <div class="content-card quick-actions-card">
+       <div class="content-card-heading">
+        <div>
+         <h2>
+          Quick Actions
+         </h2>
+         <p>
+          Frequently used options
+         </p>
+        </div>
+        <span class="heading-icon">
+         ✦
+        </span>
+       </div>
+       <div class="quick-actions">
+        <a class="quick-action" data-section="students" href="#students">
+         <span class="action-icon">
+          ＋
+         </span>
+         <span>
+          <strong>
+           Add Student
+          </strong>
+          <small>
+           Register a new student
+          </small>
+         </span>
+         <span class="action-arrow">
+          &rsaquo;
+         </span>
+        </a>
+        <a class="quick-action" data-section="courses" href="#courses">
+         <span class="action-icon">
+          ＋
+         </span>
+         <span>
+          <strong>
+           Add Course
+          </strong>
+          <small>
+           Create a new course
+          </small>
+         </span>
+         <span class="action-arrow">
+          &rsaquo;
+         </span>
+        </a>
+        <a class="quick-action" data-section="assignments" href="#assignments">
+         <span class="action-icon">
+          ＋
+         </span>
+         <span>
+          <strong>
+           Add Assignment
+          </strong>
+          <small>
+           Create an assignment
+          </small>
+         </span>
+         <span class="action-arrow">
+          &rsaquo;
+         </span>
+        </a>
+        <a class="quick-action" data-section="attendance" href="#attendance">
+         <span class="action-icon">
+          &checkmark;
+         </span>
+         <span>
+          <strong>
+           Mark Attendance
+          </strong>
+          <small>
+           Update today's attendance
+          </small>
+         </span>
+         <span class="action-arrow">
+          &rsaquo;
+         </span>
+        </a>
+       </div>
+      </div>
+     </section>
+     <section class="dashboard-section assignment-section">
+      <div class="section-heading">
+       <div>
+        <h2>
+         Assignment Summary
+        </h2>
+        <p>
+         Current assignment status
+        </p>
+       </div>
+       <a class="view-all" data-section="assignments" href="#assignments">
+        View Assignments &rarr;
+       </a>
+      </div>
+      <div class="assignment-grid">
+       <div class="assignment-box pending-box">
+        <span class="assignment-dot">
+        </span>
+        <div>
+         <h3 id="pendingAssignments">
+          0
+         </h3>
+         <p>
+          Pending
+         </p>
+        </div>
+       </div>
+       <div class="assignment-box overdue-box">
+        <span class="assignment-dot">
+        </span>
+        <div>
+         <h3 id="overdueAssignments">
+          0
+         </h3>
+         <p>
+          Overdue
+         </p>
+        </div>
+       </div>
+       <div class="assignment-box completed-box">
+        <span class="assignment-dot">
+        </span>
+        <div>
+         <h3 id="completedAssignments">
+          0
+         </h3>
+         <p>
+          Completed
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <footer class="dashboard-footer">
+      <p>
+       &copy; 2026 Student Management System. All rights reserved.
+      </p>
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Students" id="students">
+     <section class="page-intro">
+      <div>
+       <h2>
+        Student Management
+       </h2>
+       <p>
+        Add, view, update and manage student information.
+       </p>
+      </div>
+      <button class="primary-btn" id="showFormBtn" type="button">
+       + Add Student
+      </button>
+     </section>
+     <div aria-live="polite" class="message-box" id="studentMessage" role="status">
+     </div>
+     <section class="student-form-card" id="studentFormSection">
+      <div class="card-heading">
+       <div>
+        <h2 id="formTitle">
+         Add New Student
+        </h2>
+        <p>
+         Enter the student's details below.
+        </p>
+       </div>
+       <button aria-label="Close form" class="close-btn" id="closeFormBtn" type="button">
+        &times;
+       </button>
+      </div>
+      <form id="studentForm">
+       <input id="editingStudentId" type="hidden">
+       <div class="form-grid">
+        <div class="form-group">
+         <label for="studentId">
+          Student ID *
+         </label>
+         <input id="studentId" placeholder="Example: STU001" required type="text">
+         <small class="field-error" id="studentIdError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="studentName">
+          Full Name *
+         </label>
+         <input id="studentName" placeholder="Enter full name" required type="text">
+         <small class="field-error" id="studentNameError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="studentEmail">
+          Email Address *
+         </label>
+         <input id="studentEmail" placeholder="example@gmail.com" required type="email">
+         <small class="field-error" id="studentEmailError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="studentPhone">
+          Phone Number *
+         </label>
+         <input id="studentPhone" placeholder="Enter phone number" required type="tel">
+         <small class="field-error" id="studentPhoneError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="studentDOB">
+          Date of Birth *
+         </label>
+         <input id="studentDOB" required type="date">
+         <small class="field-error" id="studentDOBError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="studentCourse">
+          Course *
+         </label>
+         <select id="studentCourse" required>
+          <option value="">
+           Select course
+          </option>
+         </select>
+         <small class="field-error" id="studentCourseError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="joiningDate">
+          Joining Date *
+         </label>
+         <input id="joiningDate" required type="date">
+         <small class="field-error" id="joiningDateError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="studentStatus">
+          Status *
+         </label>
+         <select id="studentStatus" required>
+          <option value="Active">
+           Active
+          </option>
+          <option value="Inactive">
+           Inactive
+          </option>
+          <option value="Completed">
+           Completed
+          </option>
+         </select>
+        </div>
+       </div>
+       <div class="form-actions">
+        <button class="primary-btn" id="saveStudentBtn" type="submit">
+         Save Student
+        </button>
+        <button class="secondary-btn" id="cancelFormBtn" type="button">
+         Cancel
+        </button>
+       </div>
+      </form>
+     </section>
+     <section class="student-stats">
+      <div class="student-stat-card">
+       <div class="stat-icon">
+        ♙
+       </div>
+       <div>
+        <p>
+         Total Students
+        </p>
+        <h3 id="totalStudentCount">
+         0
+        </h3>
+       </div>
+      </div>
+      <div class="student-stat-card">
+       <div class="stat-icon">
+        &checkmark;
+       </div>
+       <div>
+        <p>
+         Active Students
+        </p>
+        <h3 id="activeStudentCount">
+         0
+        </h3>
+       </div>
+      </div>
+      <div class="student-stat-card">
+       <div class="stat-icon">
+        ◷
+       </div>
+       <div>
+        <p>
+         Inactive Students
+        </p>
+        <h3 id="inactiveStudentCount">
+         0
+        </h3>
+       </div>
+      </div>
+      <div class="student-stat-card">
+       <div class="stat-icon">
+        &starf;
+       </div>
+       <div>
+        <p>
+         Completed Students
+        </p>
+        <h3 id="completedStudentCount">
+         0
+        </h3>
+       </div>
+      </div>
+     </section>
+     <section class="student-list-card">
+      <div class="list-heading">
+       <div>
+        <h2>
+         Student Records
+        </h2>
+        <p>
+         View and manage all registered students.
+        </p>
+       </div>
+       <span class="record-count" id="recordCount">
+        0 records
+       </span>
+      </div>
+      <!-- Search and Filters -->
+      <div class="filter-area">
+       <div class="search-box">
+        <span>
+         &telrec;
+        </span>
+        <input id="studentSearch" placeholder="Search by name, email or student ID" type="search">
+       </div>
+       <select id="courseFilter">
+        <option value="">
+         All Courses
+        </option>
+       </select>
+       <select id="statusFilter">
+        <option value="">
+         All Statuses
+        </option>
+        <option value="Active">
+         Active
+        </option>
+        <option value="Inactive">
+         Inactive
+        </option>
+        <option value="Completed">
+         Completed
+        </option>
+       </select>
+       <select id="sortStudents">
+        <option value="name-asc">
+         Name: A to Z
+        </option>
+        <option value="name-desc">
+         Name: Z to A
+        </option>
+        <option value="date-new">
+         Joining Date: Newest
+        </option>
+        <option value="date-old">
+         Joining Date: Oldest
+        </option>
+        <option value="id-asc">
+         Student ID: A to Z
+        </option>
+        <option value="id-desc">
+         Student ID: Z to A
+        </option>
+       </select>
+      </div>
+      <!-- Table -->
+      <div class="table-wrapper">
+       <table class="student-table">
+        <thead>
+         <tr>
+          <th>
+           Student ID
+          </th>
+          <th>
+           Student Details
+          </th>
+          <th>
+           Phone
+          </th>
+          <th>
+           Course
+          </th>
+          <th>
+           Joining Date
+          </th>
+          <th>
+           Status
+          </th>
+          <th>
+           Actions
+          </th>
+         </tr>
+        </thead>
+        <tbody id="studentTableBody">
+        </tbody>
+       </table>
+      </div>
+      <!-- Pagination -->
+      <div class="pagination-area">
+       <p id="paginationInfo">
+        Showing 0 students
+       </p>
+       <div class="pagination-controls">
+        <button id="previousPage" type="button">
+         Previous
+        </button>
+        <span id="pageNumber">
+         1 / 1
+        </span>
+        <button id="nextPage" type="button">
+         Next
+        </button>
+       </div>
+      </div>
+     </section>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Courses" id="courses">
+     <section class="summary-grid">
+      <article class="summary-card">
+       <div class="summary-icon">
+        ▤
+       </div>
+       <div>
+        <p>
+         Total Courses
+        </p>
+        <h2 id="totalCourses">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon active-icon">
+        &checkmark;
+       </div>
+       <div>
+        <p>
+         Active Courses
+        </p>
+        <h2 id="activeCourses">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon student-icon">
+        ♙
+       </div>
+       <div>
+        <p>
+         Total Enrolments
+        </p>
+        <h2 id="totalEnrolments">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon trainer-icon">
+        ♟
+       </div>
+       <div>
+        <p>
+         Assigned Trainers
+        </p>
+        <h2 id="assignedTrainers">
+         0
+        </h2>
+       </div>
+      </article>
+     </section>
+     <section class="content-card form-card" hidden="" id="courseFormSection">
+      <div class="card-heading">
+       <div>
+        <h2 id="formTitle">
+         Add New Course
+        </h2>
+        <p>
+         Enter the course information below
+        </p>
+       </div>
+       <button aria-label="Close form" class="icon-close" id="closeFormBtn" type="button">
+        &times;
+       </button>
+      </div>
+      <form id="courseForm" novalidate="">
+       <input id="editingCourseId" type="hidden">
+       <div class="form-grid">
+        <div class="form-group">
+         <label for="courseId">
+          Course ID
+          <span>
+           *
+          </span>
+         </label>
+         <input id="courseId" placeholder="Example: CRS001" required type="text">
+         <small class="field-error" id="courseIdError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="courseName">
+          Course Name
+          <span>
+           *
+          </span>
+         </label>
+         <input id="courseName" placeholder="Enter course name" required type="text">
+         <small class="field-error" id="courseNameError">
+         </small>
+        </div>
+        <div class="form-group full-width">
+         <label for="courseDescription">
+          Course Description
+          <span>
+           *
+          </span>
+         </label>
+         <textarea id="courseDescription" placeholder="Describe the course..." required rows="3"></textarea>
+         <small class="field-error" id="courseDescriptionError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="courseDuration">
+          Duration
+          <span>
+           *
+          </span>
+         </label>
+         <input id="courseDuration" placeholder="Example: 3 months" required type="text">
+         <small class="field-error" id="courseDurationError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="courseFee">
+          Course Fee (₹)
+          <span>
+           *
+          </span>
+         </label>
+         <input id="courseFee" min="0" placeholder="Enter course fee" required step="0.01" type="number">
+         <small class="field-error" id="courseFeeError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="courseStatus">
+          Course Status
+         </label>
+         <select id="courseStatus">
+          <option value="Active">
+           Active
+          </option>
+          <option value="Inactive">
+           Inactive
+          </option>
+          <option value="Completed">
+           Completed
+          </option>
+         </select>
+        </div>
+        <div class="form-group">
+         <label for="courseTrainer">
+          Assign Trainer(s)
+          <span>
+           *
+          </span>
+         </label>
+         <select id="courseTrainer" multiple required size="4">
+         </select>
+         <small class="input-hint">
+          Hold Ctrl (Windows) or Command (Mac) to select multiple trainers.
+         </small>
+         <small class="field-error" id="courseTrainerError">
+         </small>
+        </div>
+       </div>
+       <p class="message-box" id="courseMessage" role="status">
+       </p>
+       <div class="form-actions">
+        <button class="secondary-btn" id="cancelFormBtn" type="button">
+         Cancel
+        </button>
+        <button class="primary-btn" id="saveCourseBtn" type="submit">
+         Save Course
+        </button>
+       </div>
+      </form>
+     </section>
+     <section class="content-card">
+      <div class="list-heading">
+       <div>
+        <h2>
+         Course List
+        </h2>
+        <p>
+         View and manage all available courses
+        </p>
+       </div>
+       <button class="primary-btn" id="showFormBtn" type="button">
+        + Add Course
+       </button>
+      </div>
+      <p class="message-box" id="courseListMessage" role="status">
+      </p>
+      <div class="filter-bar">
+       <div class="search-box">
+        <span>
+         &telrec;
+        </span>
+        <input id="courseSearch" placeholder="Search by course name or ID..." type="search"/>
+       </div>
+       <select aria-label="Filter by status" id="courseStatusFilter">
+        <option value="">
+         All Statuses
+        </option>
+        <option value="Active">
+         Active
+        </option>
+        <option value="Inactive">
+         Inactive
+        </option>
+        <option value="Completed">
+         Completed
+        </option>
+       </select>
+       <select aria-label="Sort courses" id="courseSort">
+        <option value="name-asc">
+         Name: A to Z
+        </option>
+        <option value="name-desc">
+         Name: Z to A
+        </option>
+        <option value="fee-low">
+         Fee: Low to High
+        </option>
+        <option value="fee-high">
+         Fee: High to Low
+        </option>
+        <option value="students-high">
+         Most Enrolled
+        </option>
+       </select>
+      </div>
+      <div class="table-info">
+       <span id="courseRecordCount">
+        0 courses
+       </span>
+      </div>
+      <div class="table-wrapper">
+       <table class="course-table">
+        <thead>
+         <tr>
+          <th>
+           Course ID
+          </th>
+          <th>
+           Course Details
+          </th>
+          <th>
+           Duration
+          </th>
+          <th>
+           Fee
+          </th>
+          <th>
+           Trainer(s)
+          </th>
+          <th>
+           Students
+          </th>
+          <th>
+           Status
+          </th>
+          <th>
+           Actions
+          </th>
+         </tr>
+        </thead>
+        <tbody id="courseTableBody">
+        </tbody>
+       </table>
+      </div>
+      <div class="pagination">
+       <p id="paginationInfo">
+        Showing 0 courses
+       </p>
+       <div class="pagination-controls">
+        <button id="previousPage" type="button">
+         Previous
+        </button>
+        <span id="pageNumber">
+         1 / 1
+        </span>
+        <button id="nextPage" type="button">
+         Next
+        </button>
+       </div>
+      </div>
+     </section>
+     <div class="modal-overlay" hidden="" id="courseViewModal">
+      <div class="modal-card">
+       <div class="modal-heading">
+        <div>
+         <h2>
+          Course Details
+         </h2>
+         <p>
+          Complete information about this course
+         </p>
+        </div>
+        <button aria-label="Close" class="icon-close" id="closeViewModal" type="button">
+         &times;
+        </button>
+       </div>
+       <div class="modal-details" id="courseViewContent">
+       </div>
+       <div class="modal-actions">
+        <button class="secondary-btn" id="modalCloseBtn" type="button">
+         Close
+        </button>
+       </div>
+      </div>
+     </div>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Trainers" id="trainers">
+     <section class="summary-grid">
+      <article class="summary-card">
+       <div class="summary-icon">
+        ♟
+       </div>
+       <div>
+        <p>
+         Total Trainers
+        </p>
+        <h2 id="totalTrainers">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon active-icon">
+        &checkmark;
+       </div>
+       <div>
+        <p>
+         Active Trainers
+        </p>
+        <h2 id="activeTrainers">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon course-icon">
+        ▤
+       </div>
+       <div>
+        <p>
+         Courses Assigned
+        </p>
+        <h2 id="assignedCourses">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon expertise-icon">
+        ✦
+       </div>
+       <div>
+        <p>
+         Expertise Areas
+        </p>
+        <h2 id="expertiseCount">
+         0
+        </h2>
+       </div>
+      </article>
+     </section>
+     <section class="content-card form-card" hidden="" id="trainerFormSection">
+      <div class="card-heading">
+       <div>
+        <h2 id="formTitle">
+         Add New Trainer
+        </h2>
+        <p>
+         Enter trainer details and assign courses
+        </p>
+       </div>
+       <button aria-label="Close form" class="icon-close" id="closeFormBtn" type="button">
+        &times;
+       </button>
+      </div>
+      <form id="trainerForm" novalidate="">
+       <input id="editingTrainerId" type="hidden"/>
+       <div class="form-grid">
+        <div class="form-group">
+         <label for="trainerId">
+          Trainer ID
+          <span>
+           *
+          </span>
+         </label>
+         <input id="trainerId" placeholder="Example: TRN001" required="" type="text"/>
+         <small class="field-error" id="trainerIdError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="trainerName">
+          Full Name
+          <span>
+           *
+          </span>
+         </label>
+         <input id="trainerName" placeholder="Enter trainer name" required="" type="text"/>
+         <small class="field-error" id="trainerNameError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="trainerEmail">
+          Email Address
+          <span>
+           *
+          </span>
+         </label>
+         <input id="trainerEmail" placeholder="example@email.com" required="" type="email"/>
+         <small class="field-error" id="trainerEmailError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="trainerPhone">
+          Phone Number
+          <span>
+           *
+          </span>
+         </label>
+         <input id="trainerPhone" placeholder="Enter phone number" required="" type="tel"/>
+         <small class="field-error" id="trainerPhoneError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="trainerExpertise">
+          Expertise
+          <span>
+           *
+          </span>
+         </label>
+         <input id="trainerExpertise" placeholder="Example: JavaScript, Python, React" required="" type="text"/>
+         <small class="field-error" id="trainerExpertiseError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="trainerStatus">
+          Status
+         </label>
+         <select id="trainerStatus">
+          <option value="Active">
+           Active
+          </option>
+          <option value="Inactive">
+           Inactive
+          </option>
+         </select>
+        </div>
+        <div class="form-group full-width">
+         <label for="trainerCourses">
+          Assign Courses
+          <span>
+           *
+          </span>
+         </label>
+         <select id="trainerCourses" multiple="" required="" size="5">
+         </select>
+         <small class="input-hint">
+          Select one or more courses. Hold Ctrl (Windows) or Command (Mac) to select multiple courses.
+         </small>
+         <small class="field-error" id="trainerCoursesError">
+         </small>
+        </div>
+       </div>
+       <p class="message-box" id="trainerMessage" role="status">
+       </p>
+       <div class="form-actions">
+        <button class="secondary-btn" id="cancelFormBtn" type="button">
+         Cancel
+        </button>
+        <button class="primary-btn" id="saveTrainerBtn" type="submit">
+         Save Trainer
+        </button>
+       </div>
+      </form>
+     </section>
+     <section class="content-card">
+      <div class="list-heading">
+       <div>
+        <h2>
+         Trainer List
+        </h2>
+        <p>
+         View and manage all trainers in your institution
+        </p>
+       </div>
+       <button class="primary-btn" id="showFormBtn" type="button">
+        + Add Trainer
+       </button>
+      </div>
+      <p class="message-box" id="trainerListMessage" role="status">
+      </p>
+      <div class="filter-bar">
+       <div class="search-box">
+        <span>
+         &telrec;
+        </span>
+        <input id="trainerSearch" placeholder="Search by name, ID or email..." type="search"/>
+       </div>
+       <select aria-label="Filter by status" id="trainerStatusFilter">
+        <option value="">
+         All Statuses
+        </option>
+        <option value="Active">
+         Active
+        </option>
+        <option value="Inactive">
+         Inactive
+        </option>
+       </select>
+       <select aria-label="Sort trainers" id="trainerSort">
+        <option value="name-asc">
+         Name: A to Z
+        </option>
+        <option value="name-desc">
+         Name: Z to A
+        </option>
+        <option value="id-asc">
+         Trainer ID
+        </option>
+        <option value="expertise-asc">
+         Expertise
+        </option>
+       </select>
+      </div>
+      <div class="table-info">
+       <span id="trainerRecordCount">
+        0 trainers
+       </span>
+      </div>
+      <div class="table-wrapper">
+       <table class="trainer-table">
+        <thead>
+         <tr>
+          <th>
+           Trainer ID
+          </th>
+          <th>
+           Trainer Details
+          </th>
+          <th>
+           Phone
+          </th>
+          <th>
+           Expertise
+          </th>
+          <th>
+           Assigned Courses
+          </th>
+          <th>
+           Status
+          </th>
+          <th>
+           Actions
+          </th>
+         </tr>
+        </thead>
+        <tbody id="trainerTableBody">
+        </tbody>
+       </table>
+      </div>
+      <div class="pagination">
+       <p id="paginationInfo">
+        Showing 0 trainers
+       </p>
+       <div class="pagination-controls">
+        <button id="previousPage" type="button">
+         Previous
+        </button>
+        <span id="pageNumber">
+         1 / 1
+        </span>
+        <button id="nextPage" type="button">
+         Next
+        </button>
+       </div>
+      </div>
+     </section>
+     <div class="modal-overlay" hidden="" id="trainerViewModal">
+      <div class="modal-card">
+       <div class="modal-heading">
+        <div>
+         <h2>
+          Trainer Details
+         </h2>
+         <p>
+          Complete information about this trainer
+         </p>
+        </div>
+        <button aria-label="Close" class="icon-close" id="closeViewModal" type="button">
+         &times;
+        </button>
+       </div>
+       <div class="modal-details" id="trainerViewContent">
+       </div>
+       <div class="modal-actions">
+        <button class="secondary-btn" id="modalCloseBtn" type="button">
+         Close
+        </button>
+       </div>
+      </div>
+     </div>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Attendance" id="attendance">
+     <section class="summary-grid">
+      <article class="summary-card">
+       <div class="summary-icon">
+        ♙
+       </div>
+       <div>
+        <p>
+         Students in Course
+        </p>
+        <h2 id="totalStudents">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon present-icon">
+        &checkmark;
+       </div>
+       <div>
+        <p>
+         Present
+        </p>
+        <h2 id="presentCount">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon absent-icon">
+        &times;
+       </div>
+       <div>
+        <p>
+         Absent
+        </p>
+        <h2 id="absentCount">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon leave-icon">
+        ◷
+       </div>
+       <div>
+        <p>
+         On Leave
+        </p>
+        <h2 id="leaveCount">
+         0
+        </h2>
+       </div>
+      </article>
+     </section>
+     <section class="content-card selection-card">
+      <div class="section-heading">
+       <div>
+        <h2>
+         Mark Attendance
+        </h2>
+        <p>
+         Select a course and date to record attendance
+        </p>
+       </div>
+      </div>
+      <div class="selection-grid">
+       <div class="form-group">
+        <label for="attendanceCourse">
+         Select Course
+        </label>
+        <select id="attendanceCourse">
+         <option value="">
+          Choose a course
+         </option>
+        </select>
+       </div>
+       <div class="form-group">
+        <label for="attendanceDate">
+         Attendance Date
+        </label>
+        <input id="attendanceDate" type="date"/>
+       </div>
+       <div class="form-group search-field">
+        <label for="studentSearch">
+         Search Student
+        </label>
+        <input id="studentSearch" placeholder="Search by name, ID or email" type="search"/>
+       </div>
+      </div>
+      <p class="message-box" id="attendanceMessage" role="status">
+      </p>
+     </section>
+     <section class="content-card">
+      <div class="list-heading">
+       <div>
+        <h2>
+         Student Attendance List
+        </h2>
+        <p id="selectedCourseInfo">
+         Choose a course and date to continue
+        </p>
+       </div>
+       <span class="record-status" id="attendanceRecordStatus">
+        Not saved
+       </span>
+      </div>
+      <div class="attendance-legend">
+       <span>
+        <i class="legend-dot present-dot">
+        </i>
+        Present
+       </span>
+       <span>
+        <i class="legend-dot absent-dot">
+        </i>
+        Absent
+       </span>
+       <span>
+        <i class="legend-dot leave-dot">
+        </i>
+        Leave
+       </span>
+      </div>
+      <div class="table-wrapper">
+       <table class="attendance-table">
+        <thead>
+         <tr>
+          <th>
+           Student
+          </th>
+          <th>
+           Student ID
+          </th>
+          <th>
+           Email
+          </th>
+          <th>
+           Attendance Status
+          </th>
+         </tr>
+        </thead>
+        <tbody id="attendanceTableBody">
+         <tr>
+          <td class="empty-cell" colspan="4">
+           Select a course and date to display students.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="attendance-actions">
+       <p id="attendanceSummary">
+        Select a course and date to view the attendance summary.
+       </p>
+       <button class="primary-btn" disabled="" id="saveAttendanceBtn" type="button">
+        Save Attendance
+       </button>
+      </div>
+     </section>
+     <section class="content-card history-card">
+      <div class="list-heading">
+       <div>
+        <h2>
+         Attendance History
+        </h2>
+        <p>
+         Review saved attendance records by student and date
+        </p>
+       </div>
+      </div>
+      <div class="history-filters">
+       <div class="form-group">
+        <label for="historyCourse">
+         Course
+        </label>
+        <select id="historyCourse">
+         <option value="">
+          All Courses
+         </option>
+        </select>
+       </div>
+       <div class="form-group">
+        <label for="historyDate">
+         Date
+        </label>
+        <input id="historyDate" type="date"/>
+       </div>
+       <div class="form-group">
+        <label for="historyStudent">
+         Student
+        </label>
+        <input id="historyStudent" placeholder="Search student" type="search"/>
+       </div>
+       <div class="form-group">
+        <label for="historyStatus">
+         Status
+        </label>
+        <select id="historyStatus">
+         <option value="">
+          All Statuses
+         </option>
+         <option value="Present">
+          Present
+         </option>
+         <option value="Absent">
+          Absent
+         </option>
+         <option value="Leave">
+          Leave
+         </option>
+        </select>
+       </div>
+      </div>
+      <div class="table-info" id="historyRecordCount">
+       0 records
+      </div>
+      <div class="table-wrapper">
+       <table class="attendance-table history-table">
+        <thead>
+         <tr>
+          <th>
+           Date
+          </th>
+          <th>
+           Student
+          </th>
+          <th>
+           Course
+          </th>
+          <th>
+           Status
+          </th>
+          <th>
+           Attendance %
+          </th>
+         </tr>
+        </thead>
+        <tbody id="historyTableBody">
+         <tr>
+          <td class="empty-cell" colspan="5">
+           No attendance records available.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="pagination">
+       <p id="historyPaginationInfo">
+        Showing 0 records
+       </p>
+       <div class="pagination-controls">
+        <button id="historyPrevious" type="button">
+         Previous
+        </button>
+        <span id="historyPageNumber">
+         1 / 1
+        </span>
+        <button id="historyNext" type="button">
+         Next
+        </button>
+       </div>
+      </div>
+     </section>
+     <div class="calculation-note">
+      <strong>
+       Attendance calculation:
+      </strong>
+      Present days &divide; (Present days + Absent days) &times; 100.
+            Leave days are excluded from the calculation.
+     </div>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Assignments" id="assignments">
+     <section class="summary-grid">
+      <article class="summary-card">
+       <div class="summary-icon">
+        ▣
+       </div>
+       <div>
+        <p>
+         Total Assignments
+        </p>
+        <h2 id="totalAssignments">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon submitted-icon">
+        &checkmark;
+       </div>
+       <div>
+        <p>
+         Submitted
+        </p>
+        <h2 id="submittedCount">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon pending-icon">
+        ◷
+       </div>
+       <div>
+        <p>
+         Not Submitted
+        </p>
+        <h2 id="notSubmittedCount">
+         0
+        </h2>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon late-icon">
+        !
+       </div>
+       <div>
+        <p>
+         Late Submissions
+        </p>
+        <h2 id="lateCount">
+         0
+        </h2>
+       </div>
+      </article>
+     </section>
+     <section class="content-card" id="assignmentFormSection">
+      <div class="section-heading">
+       <div>
+        <h2 id="formHeading">
+         Create New Assignment
+        </h2>
+        <p>
+         Add an assignment and assign it to a course
+        </p>
+       </div>
+       <button class="secondary-btn" hidden="" id="cancelEditBtn" type="button">
+        Cancel Edit
+       </button>
+      </div>
+      <form id="assignmentForm">
+       <input id="editingAssignmentId" type="hidden"/>
+       <div class="form-grid">
+        <div class="form-group">
+         <label for="assignmentTitle">
+          Assignment Title *
+         </label>
+         <input id="assignmentTitle" maxlength="100" placeholder="Example: JavaScript Fundamentals" required="" type="text"/>
+         <small class="field-error" id="titleError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="assignmentCourse">
+          Course *
+         </label>
+         <select id="assignmentCourse" required="">
+          <option value="">
+           Select course
+          </option>
+         </select>
+         <small class="field-error" id="courseError">
+         </small>
+        </div>
+        <div class="form-group full-width">
+         <label for="assignmentDescription">
+          Description *
+         </label>
+         <textarea id="assignmentDescription" maxlength="1000" placeholder="Describe the assignment tasks and requirements" required="" rows="3"></textarea>
+         <small class="field-error" id="descriptionError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="assignmentAssignedDate">
+          Assigned Date *
+         </label>
+         <input id="assignmentAssignedDate" required="" type="date"/>
+         <small class="field-error" id="assignedDateError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="assignmentDueDate">
+          Due Date *
+         </label>
+         <input id="assignmentDueDate" required="" type="date"/>
+         <small class="field-error" id="dueDateError">
+         </small>
+        </div>
+       </div>
+       <p class="message-box" id="assignmentMessage" role="status">
+       </p>
+       <div class="form-actions">
+        <button class="primary-btn" id="saveAssignmentBtn" type="submit">
+         Create Assignment
+        </button>
+        <button class="secondary-btn" id="resetAssignmentBtn" type="reset">
+         Clear Form
+        </button>
+       </div>
+      </form>
+     </section>
+     <section class="content-card">
+      <div class="list-heading">
+       <div>
+        <h2>
+         Assignment List
+        </h2>
+        <p>
+         View assignments and manage student submissions
+        </p>
+       </div>
+       <span class="record-count" id="assignmentRecordCount">
+        0 assignments
+       </span>
+      </div>
+      <div class="filter-grid">
+       <div class="form-group">
+        <label for="assignmentSearch">
+         Search
+        </label>
+        <input id="assignmentSearch" placeholder="Search assignment title" type="search"/>
+       </div>
+       <div class="form-group">
+        <label for="filterCourse">
+         Course
+        </label>
+        <select id="filterCourse">
+         <option value="">
+          All Courses
+         </option>
+        </select>
+       </div>
+       <div class="form-group">
+        <label for="filterStatus">
+         Submission Status
+        </label>
+        <select id="filterStatus">
+         <option value="">
+          All Statuses
+         </option>
+         <option value="Not submitted">
+          Not submitted
+         </option>
+         <option value="Submitted">
+          Submitted
+         </option>
+         <option value="Late">
+          Late
+         </option>
+        </select>
+       </div>
+       <div class="form-group">
+        <label for="assignmentSort">
+         Sort By
+        </label>
+        <select id="assignmentSort">
+         <option value="due-asc">
+          Due Date: Earliest
+         </option>
+         <option value="due-desc">
+          Due Date: Latest
+         </option>
+         <option value="title-asc">
+          Title: A to Z
+         </option>
+         <option value="title-desc">
+          Title: Z to A
+         </option>
+        </select>
+       </div>
+      </div>
+      <div class="table-wrapper">
+       <table class="assignment-table">
+        <thead>
+         <tr>
+          <th>
+           Assignment
+          </th>
+          <th>
+           Course
+          </th>
+          <th>
+           Assigned Date
+          </th>
+          <th>
+           Due Date
+          </th>
+          <th>
+           Submissions
+          </th>
+          <th>
+           Actions
+          </th>
+         </tr>
+        </thead>
+        <tbody id="assignmentTableBody">
+         <tr>
+          <td class="empty-cell" colspan="6">
+           No assignments created yet.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="pagination">
+       <p id="assignmentPaginationInfo">
+        Showing 0 assignments
+       </p>
+       <div class="pagination-controls">
+        <button id="previousPage" type="button">
+         Previous
+        </button>
+        <span id="pageNumber">
+         1 / 1
+        </span>
+        <button id="nextPage" type="button">
+         Next
+        </button>
+       </div>
+      </div>
+     </section>
+     <div class="modal-overlay" hidden="" id="submissionModal">
+      <div class="submission-modal">
+       <div class="modal-header">
+        <div>
+         <p class="modal-eyebrow">
+          ASSIGNMENT SUBMISSIONS
+         </p>
+         <h2 id="modalAssignmentTitle">
+          Assignment
+         </h2>
+         <p id="modalAssignmentCourse">
+          Course
+         </p>
+        </div>
+        <button aria-label="Close" class="modal-close" id="closeSubmissionModal" type="button">
+         &times;
+        </button>
+       </div>
+       <div class="submission-summary" id="submissionSummary">
+       </div>
+       <div class="table-wrapper">
+        <table class="submission-table">
+         <thead>
+          <tr>
+           <th>
+            Student
+           </th>
+           <th>
+            Submission Status
+           </th>
+           <th>
+            Marks
+           </th>
+           <th>
+            Feedback
+           </th>
+           <th>
+            Action
+           </th>
+          </tr>
+         </thead>
+         <tbody id="submissionTableBody">
+          <tr>
+           <td class="empty-cell" colspan="5">
+            No students available.
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="modal-footer">
+        <p>
+         Enter marks and feedback for each student, then save.
+        </p>
+        <button class="primary-btn" id="doneSubmissionBtn" type="button">
+         Done
+        </button>
+       </div>
+      </div>
+     </div>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Reports" id="reports">
+     <section class="summary-grid">
+      <article class="summary-card">
+       <div class="summary-icon">
+        ♙
+       </div>
+       <div>
+        <p>
+         Total Students
+        </p>
+        <h2 id="totalStudents">
+         0
+        </h2>
+        <small>
+         Registered students
+        </small>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon">
+        ▤
+       </div>
+       <div>
+        <p>
+         Total Courses
+        </p>
+        <h2 id="totalCourses">
+         0
+        </h2>
+        <small>
+         Available courses
+        </small>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon">
+        ♟
+       </div>
+       <div>
+        <p>
+         Total Trainers
+        </p>
+        <h2 id="totalTrainers">
+         0
+        </h2>
+        <small>
+         Registered trainers
+        </small>
+       </div>
+      </article>
+      <article class="summary-card">
+       <div class="summary-icon">
+        ▣
+       </div>
+       <div>
+        <p>
+         Attendance Days
+        </p>
+        <h2 id="totalDays">
+         0
+        </h2>
+        <small>
+         Dates with saved records
+        </small>
+       </div>
+      </article>
+     </section>
+     <section class="report-card">
+      <div class="section-heading">
+       <div>
+        <h2>
+         Course Enrollment Report
+        </h2>
+        <p>
+         Student enrollment and trainer details for each course
+        </p>
+       </div>
+       <button class="export-btn" id="exportCourseReport" type="button">
+        &darr; Export CSV
+       </button>
+      </div>
+      <div class="table-wrapper">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Course Name
+          </th>
+          <th>
+           Trainer
+          </th>
+          <th>
+           Total Students
+          </th>
+          <th>
+           Enrollment Share
+          </th>
+         </tr>
+        </thead>
+        <tbody id="courseReportBody">
+         <tr>
+          <td class="empty-cell" colspan="4">
+           No course records available.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="report-card">
+      <div class="section-heading attendance-heading">
+       <div>
+        <h2>
+         Student Attendance Report
+        </h2>
+        <p>
+         Review attendance records and calculate student percentages
+        </p>
+       </div>
+       <button class="export-btn" id="exportAttendanceReport" type="button">
+        &darr; Export CSV
+       </button>
+      </div>
+      <!-- Filters -->
+      <div class="filter-grid">
+       <div class="form-group">
+        <label for="attendanceSearch">
+         Search Student
+        </label>
+        <input id="attendanceSearch" placeholder="Name or email" type="search"/>
+       </div>
+       <div class="form-group">
+        <label for="attendanceCourseFilter">
+         Course
+        </label>
+        <select id="attendanceCourseFilter">
+         <option value="">
+          All Courses
+         </option>
+        </select>
+       </div>
+       <div class="form-group">
+        <label for="fromDate">
+         From Date
+        </label>
+        <input id="fromDate" type="date"/>
+       </div>
+       <div class="form-group">
+        <label for="toDate">
+         To Date
+        </label>
+        <input id="toDate" type="date"/>
+       </div>
+      </div>
+      <div class="attendance-note">
+       <span class="note-icon">
+        i
+       </span>
+       Attendance percentage = Present &divide; (Present + Absent) &times; 100.
+                Leave records are excluded from the calculation.
+      </div>
+      <div class="table-wrapper">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Student Name
+          </th>
+          <th>
+           Email
+          </th>
+          <th>
+           Course
+          </th>
+          <th>
+           Present
+          </th>
+          <th>
+           Absent
+          </th>
+          <th>
+           Leave
+          </th>
+          <th>
+           Attendance %
+          </th>
+         </tr>
+        </thead>
+        <tbody id="attendanceReportBody">
+         <tr>
+          <td class="empty-cell" colspan="7">
+           No attendance records available.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="table-footer">
+       <span id="attendanceRecordCount">
+        0 students
+       </span>
+       <button class="clear-filter-btn" id="clearAttendanceFilters" type="button">
+        Clear Filters
+       </button>
+      </div>
+     </section>
+     <section class="report-card">
+      <div class="section-heading">
+       <div>
+        <h2>
+         Assignment Performance Report
+        </h2>
+        <p>
+         Overview of student assignment submissions
+        </p>
+       </div>
+       <button class="export-btn" id="exportAssignmentReport" type="button">
+        &darr; Export CSV
+       </button>
+      </div>
+      <div class="table-wrapper">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Assignment
+          </th>
+          <th>
+           Course
+          </th>
+          <th>
+           Total Students
+          </th>
+          <th>
+           Submitted
+          </th>
+          <th>
+           Not Submitted
+          </th>
+          <th>
+           Late
+          </th>
+          <th>
+           Average Marks
+          </th>
+         </tr>
+        </thead>
+        <tbody id="assignmentReportBody">
+         <tr>
+          <td class="empty-cell" colspan="7">
+           No assignment records available.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Profile" id="profile">
+     <section class="profile-overview">
+      <div class="profile-avatar" id="profileAvatar">
+       A
+      </div>
+      <div class="profile-overview-info">
+       <span class="profile-tag">
+        ADMINISTRATOR ACCOUNT
+       </span>
+       <h2 id="profileDisplayName">
+        Admin
+       </h2>
+       <p id="profileDisplayEmail">
+        No email added
+       </p>
+      </div>
+      <div class="account-status">
+       <span class="status-dot">
+       </span>
+       Active Account
+      </div>
+     </section>
+     <div class="profile-grid">
+      <!-- Personal Information -->
+      <section class="profile-card">
+       <div class="card-heading">
+        <div class="card-icon">
+         ♙
+        </div>
+        <div>
+         <h2>
+          Personal Information
+         </h2>
+         <p>
+          Update your administrator details
+         </p>
+        </div>
+       </div>
+       <form id="profileForm" novalidate="">
+        <div class="form-group">
+         <label for="profileName">
+          Full Name
+         </label>
+         <input autocomplete="name" id="profileName" placeholder="Enter your full name" required="" type="text"/>
+         <small class="field-error" id="nameError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="profileEmail">
+          Email Address
+         </label>
+         <input autocomplete="email" id="profileEmail" placeholder="Enter your email address" required="" type="email"/>
+         <small class="field-error" id="emailError">
+         </small>
+        </div>
+        <div class="form-info">
+         Your updated information will be saved in this browser.
+        </div>
+        <div class="form-actions">
+         <button class="primary-btn" type="submit">
+          Save Changes
+         </button>
+        </div>
+        <p aria-live="polite" class="form-message" id="profileMessage">
+        </p>
+       </form>
+      </section>
+      <!-- Password -->
+      <section class="profile-card">
+       <div class="card-heading">
+        <div class="card-icon">
+         ♙
+        </div>
+        <div>
+         <h2>
+          Change Password
+         </h2>
+         <p>
+          Keep your administrator account secure
+         </p>
+        </div>
+       </div>
+       <form id="passwordForm" novalidate="">
+        <div class="form-group">
+         <label for="currentPassword">
+          Current Password
+         </label>
+         <div class="password-wrapper">
+          <input autocomplete="current-password" id="currentPassword" placeholder="Enter current password" required="" type="password"/>
+          <button class="toggle-password" data-target="currentPassword" type="button">
+           Show
+          </button>
+         </div>
+         <small class="field-error" id="currentPasswordError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="newPassword">
+          New Password
+         </label>
+         <div class="password-wrapper">
+          <input autocomplete="new-password" id="newPassword" placeholder="Enter new password" required="" type="password"/>
+          <button class="toggle-password" data-target="newPassword" type="button">
+           Show
+          </button>
+         </div>
+         <small class="field-error" id="newPasswordError">
+         </small>
+        </div>
+        <div class="form-group">
+         <label for="confirmPassword">
+          Confirm New Password
+         </label>
+         <div class="password-wrapper">
+          <input autocomplete="new-password" id="confirmPassword" placeholder="Confirm new password" required="" type="password"/>
+          <button class="toggle-password" data-target="confirmPassword" type="button">
+           Show
+          </button>
+         </div>
+         <small class="field-error" id="confirmPasswordError">
+         </small>
+        </div>
+        <div class="password-guidelines">
+         <strong>
+          Password requirements
+         </strong>
+         <ul>
+          <li>
+           At least 6 characters
+          </li>
+          <li>
+           Must be different from the current password
+          </li>
+          <li>
+           Confirmation must match the new password
+          </li>
+         </ul>
+        </div>
+        <div class="form-actions">
+         <button class="primary-btn" type="submit">
+          Update Password
+         </button>
+        </div>
+        <p aria-live="polite" class="form-message" id="passwordMessage">
+        </p>
+       </form>
+      </section>
+     </div>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+    <section class="page-section" data-page-title="Student Details" id="student-details">
+     <div class="page-actions">
+      <a class="back-btn" data-section="students" href="#students">
+       &larr; Back to Students
+      </a>
+      <button class="primary-btn" id="editStudentBtn" type="button">
+       ✎ Edit Student
+      </button>
+     </div>
+     <section class="not-found" hidden="" id="notFound">
+      <div class="not-found-icon">
+       !
+      </div>
+      <h2>
+       Student Not Found
+      </h2>
+      <p>
+       The requested student record could not be found.
+      </p>
+      <a class="primary-btn" data-section="students" href="#students">
+       Back to Students
+      </a>
+     </section>
+     <div id="studentDetailsContent">
+      <!-- Profile Header -->
+      <section class="profile-header">
+       <div class="profile-avatar" id="studentAvatar">
+        S
+       </div>
+       <div class="profile-heading">
+        <span class="profile-label">
+         STUDENT PROFILE
+        </span>
+        <h2 id="detailName">
+         Student Name
+        </h2>
+        <p id="detailStudentId">
+         Student ID: &mdash;
+        </p>
+       </div>
+       <span class="status-badge status-active" id="detailStatus">
+        Active
+       </span>
+      </section>
+      <!-- Personal Information -->
+      <section class="details-card">
+       <div class="section-heading">
+        <div>
+         <h2>
+          Personal Information
+         </h2>
+         <p>
+          Student's personal and contact details
+         </p>
+        </div>
+        <span class="section-icon">
+         ♙
+        </span>
+       </div>
+       <div class="details-grid">
+        <div class="detail-item">
+         <span>
+          Full Name
+         </span>
+         <strong id="detailFullName">
+          &mdash;
+         </strong>
+        </div>
+        <div class="detail-item">
+         <span>
+          Email Address
+         </span>
+         <strong id="detailEmail">
+          &mdash;
+         </strong>
+        </div>
+        <div class="detail-item">
+         <span>
+          Phone Number
+         </span>
+         <strong id="detailPhone">
+          &mdash;
+         </strong>
+        </div>
+        <div class="detail-item">
+         <span>
+          Date of Birth
+         </span>
+         <strong id="detailDOB">
+          &mdash;
+         </strong>
+        </div>
+        <div class="detail-item">
+         <span>
+          Joining Date
+         </span>
+         <strong id="detailJoiningDate">
+          &mdash;
+         </strong>
+        </div>
+        <div class="detail-item">
+         <span>
+          Student Status
+         </span>
+         <strong id="detailStatusText">
+          &mdash;
+         </strong>
+        </div>
+       </div>
+      </section>
+      <!-- Course Information -->
+      <section class="details-card">
+       <div class="section-heading">
+        <div>
+         <h2>
+          Course Information
+         </h2>
+         <p>
+          Enrolled course and assigned trainer
+         </p>
+        </div>
+        <span class="section-icon">
+         ▤
+        </span>
+       </div>
+       <div class="course-info-grid">
+        <div class="course-info-box">
+         <span>
+          Enrolled Course
+         </span>
+         <h3 id="detailCourse">
+          &mdash;
+         </h3>
+        </div>
+        <div class="course-info-box">
+         <span>
+          Course Duration
+         </span>
+         <h3 id="detailCourseDuration">
+          &mdash;
+         </h3>
+        </div>
+        <div class="course-info-box">
+         <span>
+          Assigned Trainer
+         </span>
+         <h3 id="detailTrainer">
+          &mdash;
+         </h3>
+         <small id="detailTrainerEmail">
+         </small>
+        </div>
+       </div>
+      </section>
+      <!-- Attendance Summary -->
+      <section class="details-card">
+       <div class="section-heading">
+        <div>
+         <h2>
+          Attendance Summary
+         </h2>
+         <p>
+          Student's recorded attendance
+         </p>
+        </div>
+        <span class="section-icon">
+         &checkmark;
+        </span>
+       </div>
+       <div class="attendance-grid">
+        <div class="attendance-box">
+         <span class="attendance-number" id="presentDays">
+          0
+         </span>
+         <span>
+          Present
+         </span>
+        </div>
+        <div class="attendance-box">
+         <span class="attendance-number" id="absentDays">
+          0
+         </span>
+         <span>
+          Absent
+         </span>
+        </div>
+        <div class="attendance-box">
+         <span class="attendance-number" id="leaveDays">
+          0
+         </span>
+         <span>
+          Leave
+         </span>
+        </div>
+        <div class="attendance-box percentage-box">
+         <span class="attendance-number" id="attendancePercentage">
+          0%
+         </span>
+         <span>
+          Attendance Percentage
+         </span>
+        </div>
+       </div>
+       <div class="attendance-progress">
+        <div class="progress-track">
+         <div class="progress-fill" id="attendanceProgressBar">
+         </div>
+        </div>
+        <p id="attendanceExplanation">
+         Percentage is calculated from recorded attendance.
+        </p>
+       </div>
+      </section>
+      <!-- Assignment Summary -->
+      <section class="details-card">
+       <div class="section-heading">
+        <div>
+         <h2>
+          Assignment Status
+         </h2>
+         <p>
+          Assignments associated with the student's course
+         </p>
+        </div>
+        <span class="section-icon">
+         ▣
+        </span>
+       </div>
+       <div class="assignment-summary-grid">
+        <div class="assignment-summary-box">
+         <h3 id="totalAssignments">
+          0
+         </h3>
+         <span>
+          Total Assignments
+         </span>
+        </div>
+        <div class="assignment-summary-box">
+         <h3 id="submittedAssignments">
+          0
+         </h3>
+         <span>
+          Submitted
+         </span>
+        </div>
+        <div class="assignment-summary-box">
+         <h3 id="lateAssignments">
+          0
+         </h3>
+         <span>
+          Late
+         </span>
+        </div>
+        <div class="assignment-summary-box">
+         <h3 id="notSubmittedAssignments">
+          0
+         </h3>
+         <span>
+          Not Submitted
+         </span>
+        </div>
+       </div>
+       <div class="assignment-table-wrapper">
+        <table class="assignment-table">
+         <thead>
+          <tr>
+           <th>
+            Assignment
+           </th>
+           <th>
+            Due Date
+           </th>
+           <th>
+            Status
+           </th>
+          </tr>
+         </thead>
+         <tbody id="assignmentTableBody">
+          <tr>
+           <td class="empty-cell" colspan="3">
+            No assignments available.
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </section>
+     </div>
+     <footer class="page-footer">
+      &copy; 2026 Student Management System. All rights reserved.
+     </footer>
+    </section>
+   </main>
+  </div>
+  <script src="js/auth-guard.js">
+  </script>
+  <script src="js/dashboard.js">
+  </script>
+  <script src="js/students.js">
+  </script>
+  <script src="js/courses.js">
+  </script>
+  <script src="js/trainers.js">
+  </script>
+  <script src="js/attendance.js">
+  </script>
+  <script src="js/assignments.js">
+  </script>
+  <script src="js/reports.js">
+  </script>
+  <script src="js/profile.js">
+  </script>
+  <script src="js/student-details.js">
+  </script>
+  <script src="js/single-page.js">
+  </script>
+ </body>
+</html>
