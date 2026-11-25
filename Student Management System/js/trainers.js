@@ -155,6 +155,7 @@ function getTrainerCourseIds(trainer) {
             : (course.trainer ? [course.trainer] : []);
 
         if (
+            courseTrainerNames.includes(trainer.id) ||
             courseTrainerNames.includes(trainer.name) ||
             courseTrainerNames.includes(trainer.email)
         ) {
@@ -191,7 +192,7 @@ function loadCourseOptions(selectedIds = []) {
     if (courses.length === 0) {
         const option = document.createElement("option");
         option.value = "";
-        option.textContent = "No courses available. Add a course first.";
+        option.textContent = "No courses yet. You can assign this trainer later when adding a course.";
         option.disabled = true;
 
         trainerCourses.appendChild(option);
@@ -219,15 +220,15 @@ function syncTrainerCourseAssignments(trainer, selectedCourseIds) {
             ? [...course.trainers]
             : (course.trainer ? [course.trainer] : []);
 
-        // Remove the old name/email from all course assignments.
+        // Remove the old name/email/id from all course assignments.
         assignedTrainers = assignedTrainers.filter(function (name) {
-            return name !== oldName && name !== trainer.email;
+            return name !== oldName && name !== trainer.email && name !== trainer.id;
         });
 
         // Add the trainer to selected courses.
         if (selectedCourseIds.includes(course.id)) {
-            if (!assignedTrainers.includes(newName)) {
-                assignedTrainers.push(newName);
+            if (!assignedTrainers.includes(trainer.id) && !assignedTrainers.includes(newName)) {
+                assignedTrainers.push(trainer.id || newName);
             }
         }
 
@@ -352,11 +353,6 @@ function validateTrainer(data) {
 
     if (data.expertise.length < 2) {
         setFieldError("trainerExpertise", "Enter the trainer's expertise.");
-        valid = false;
-    }
-
-    if (data.courses.length === 0) {
-        setFieldError("trainerCourses", "Assign at least one course.");
         valid = false;
     }
 

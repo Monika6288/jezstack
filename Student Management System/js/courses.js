@@ -42,6 +42,23 @@ function getStoredData(key, fallback) {
     }
 }
 
+// Generate uniform trainer objects for compatibility
+function normalizeTrainers(list) {
+    return (list || []).map(function (trainer, index) {
+        return {
+            ...trainer,
+            id: trainer.id || trainer.trainerId ||
+                `OLDTRN${String(index + 1).padStart(3, "0")}`,
+            name: trainer.name || trainer.trainerName || "Unnamed Trainer",
+            phone: trainer.phone || "",
+            expertise: trainer.expertise || trainer.subject || "Not specified",
+            subject: trainer.subject || trainer.expertise || "Not specified",
+            status: trainer.status || "Active",
+            courses: Array.isArray(trainer.courses) ? trainer.courses : []
+        };
+    });
+}
+
 // Make old course records compatible
 function normalizeCourses(list) {
     return list.map(function (course, index) {
@@ -64,7 +81,7 @@ function normalizeCourses(list) {
 
 // Load existing records
 let courses = normalizeCourses(getStoredData("courses", []));
-let trainers = getStoredData("trainers", []);
+let trainers = normalizeTrainers(getStoredData("trainers", []));
 let students = getStoredData("students", []);
 
 // Re-read data saved by the other sections (Trainers, Students, ...).
@@ -72,7 +89,7 @@ let students = getStoredData("students", []);
 // overwrite changes made elsewhere.
 function refreshData() {
     courses = normalizeCourses(getStoredData("courses", []));
-    trainers = getStoredData("trainers", []);
+    trainers = normalizeTrainers(getStoredData("trainers", []));
     students = getStoredData("students", []);
 }
 
@@ -134,17 +151,22 @@ function setFieldError(fieldId, message) {
 }
 
 // Load trainer options
-function loadTrainerOptions(selectedNames = []) {
+function loadTrainerOptions(selectedIdentifiers = []) {
+    refreshData();
     courseTrainer.innerHTML = "";
 
     trainers.forEach(function (trainer) {
         const option = document.createElement("option");
 
-        option.value = trainer.name;
+        // Associate trainer's correct ID as value
+        option.value = trainer.id;
+        // Display trainer's name and expertise/subject
         option.textContent = trainer.name +
             (trainer.subject ? " (" + trainer.subject + ")" : "");
 
-        option.selected = selectedNames.includes(trainer.name);
+        // Match by ID or by name for backward compatibility with existing courses
+        option.selected = selectedIdentifiers.includes(trainer.id) ||
+                          selectedIdentifiers.includes(trainer.name);
 
         courseTrainer.appendChild(option);
     });
@@ -158,7 +180,7 @@ function loadTrainerOptions(selectedNames = []) {
     }
 }
 
-// Get selected trainers
+// Get selected trainers (returns array of selected trainer IDs)
 function getSelectedTrainers() {
     return Array.from(courseTrainer.selectedOptions)
         .map(function (option) {
@@ -174,13 +196,49 @@ function getEnrolledStudents(course) {
     });
 }
 
-// Get course trainers
-function getCourseTrainers(course) {
+// Get raw course trainer identifiers (IDs or legacy names)
+function getCourseTrainerIdentifiers(course) {
     if (Array.isArray(course.trainers)) {
         return course.trainers;
     }
 
     return course.trainer ? [course.trainer] : [];
+}
+
+// Get course trainers (resolved to display names)
+function getCourseTrainers(course) {
+    const rawList = getCourseTrainerIdentifiers(course);
+
+    return rawList.map(function (identifier) {
+        const match = trainers.find(function (t) {
+            return t.id === identifier || t.name === identifier || t.email === identifier;
+        });
+        return match ? match.name : identifier;
+    });
+}
+
+// Synchronise trainer assignments with trainer records in storage
+function syncCourseTrainerAssignments(courseId, assignedTrainerIds) {
+    let changed = false;
+    trainers.forEach(function (trainer) {
+        const currentCourses = Array.isArray(trainer.courses) ? [...trainer.courses] : [];
+        const isAssigned = assignedTrainerIds.includes(trainer.id) || assignedTrainerIds.includes(trainer.name);
+
+        if (isAssigned && !currentCourses.includes(courseId)) {
+            currentCourses.push(courseId);
+            trainer.courses = currentCourses;
+            changed = true;
+        } else if (!isAssigned && currentCourses.includes(courseId)) {
+            trainer.courses = currentCourses.filter(function (id) {
+                return id !== courseId;
+            });
+            changed = true;
+        }
+    });
+
+    if (changed) {
+        localStorage.setItem("trainers", JSON.stringify(trainers));
+    }
 }
 
 // Update summary cards
@@ -214,6 +272,10 @@ function updateStatistics() {
 
 // Open course form
 function openCourseForm() {
+    refreshData();
+    if (!editingCourseId.value) {
+        loadTrainerOptions();
+    }
     courseFormSection.hidden = false;
 
     courseFormSection.scrollIntoView({
@@ -340,10 +402,18 @@ courseForm.addEventListener("submit", function (event) {
         return;
     }
 
-    // Keep old trainer property for compatibility
+    // Keep old trainer property for compatibility with reports, student details, etc.
+    const selectedTrainerIds = getSelectedTrainers();
+    const primaryTrainerObj = trainers.find(function (t) {
+        return t.id === selectedTrainerIds[0] || t.name === selectedTrainerIds[0];
+    });
+    const primaryTrainerName = primaryTrainerObj ? primaryTrainerObj.name : (selectedTrainerIds[0] || "");
+
     const courseData = {
         ...data,
-        trainer: data.trainers[0]
+        trainers: selectedTrainerIds,
+        trainerId: selectedTrainerIds[0] || "",
+        trainer: primaryTrainerName
     };
 
     if (editingCourseId.value) {
@@ -358,6 +428,7 @@ courseForm.addEventListener("submit", function (event) {
             };
 
             saveCourses();
+            syncCourseTrainerAssignments(courseData.id, selectedTrainerIds);
             renderCourses();
             updateStatistics();
             closeCourseForm();
@@ -368,6 +439,7 @@ courseForm.addEventListener("submit", function (event) {
         courses.push(courseData);
 
         saveCourses();
+        syncCourseTrainerAssignments(courseData.id, selectedTrainerIds);
         renderCourses();
         updateStatistics();
         closeCourseForm();
@@ -395,13 +467,17 @@ function editCourse(id) {
     courseFee.value = course.fee;
     courseStatus.value = course.status;
 
-    loadTrainerOptions(getCourseTrainers(course));
+    loadTrainerOptions(getCourseTrainerIdentifiers(course));
 
     el("formTitle").textContent = "Edit Course";
     el("saveCourseBtn").textContent = "Update Course";
 
     clearErrors();
-    openCourseForm();
+    courseFormSection.hidden = false;
+    courseFormSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
 // Delete course
@@ -434,6 +510,7 @@ function deleteCourse(id) {
     });
 
     saveCourses();
+    syncCourseTrainerAssignments(id, []);
     renderCourses();
     updateStatistics();
 
@@ -734,11 +811,11 @@ new MutationObserver(function () {
     if (!section.classList.contains("active-section")) return;
 
     refreshData();
-
-    if (courseFormSection.hidden) {
+    if (editingCourseId.value) {
+        loadTrainerOptions(getSelectedTrainers());
+    } else {
         loadTrainerOptions();
     }
-
     updateStatistics();
     renderCourses();
 }).observe(section, { attributes: true, attributeFilter: ["class"] });
